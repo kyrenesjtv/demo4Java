@@ -13,6 +13,7 @@
             <artifactId>junit</artifactId>
             <version>4.9</version>
         </dependency>
+        <!-- //////////////// -->
         <!-- apache httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -32,6 +33,23 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.4.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- //////////////// -->
+        <!-- //////////////// -->
+
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>it.sauronsoftware.cron4j</groupId>
+            <artifactId>cron4j</artifactId>
+            <version>2.2.5</version>
             <scope>provided</scope>
         </dependency>
         <!-- //////////////// -->
