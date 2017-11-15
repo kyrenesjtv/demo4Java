@@ -5,8 +5,13 @@ package me.kyrene.demo.jdk8NewFunction.Lambda;
  */
 @FunctionalInterface
 public interface Functional {
+
     void method();
+
+    /**
+     * 默认方法不一定要被实现
+     */
     default void defaultMethon(){
-        System.out.println("aaaa");
+        System.out.println("default string");
     }
 }
