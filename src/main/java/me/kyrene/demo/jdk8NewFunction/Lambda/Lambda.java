@@ -14,6 +14,7 @@ public class Lambda {
     String separator = ",";
 
     @Test
+    //循环
     public void test1() {
         //变成了一个数组
         List<String> strings = Arrays.asList("a", "b", "c");
@@ -54,7 +55,8 @@ public class Lambda {
     }
 
     @Test
-    public void test4(){
+    //接口
+    public void test4() {
         //functional 本来是常规借口，现在@fFnctionInterface可以能够被lambda表达式使用
         //并且默认方法也是不影响使用的
 
@@ -66,35 +68,53 @@ public class Lambda {
 
 
     }
-    @Test
-    public void test5(){
-        //方法引用
 
-        //1.    构造器引用
+    @Test
+    //方法引用
+    public void test5() {
+
+        //1.    构造器引用，得到了Car对象
         Car car = Car.create(Car::new);
-        List< Car > cars = Arrays.asList( car );
-        //引用静态方法
+        System.out.println("car:    " + car.toString());
+        List<Car> cars = Arrays.asList(car);
+        //2.    引用静态方法  对象::静态方法
         // cars.forEach(Car::collide);
-        //
-        cars.forEach(Car::repair);
+        //3.    引用没有参数的方法  对象::方法
+        cars.forEach(Car::repair1);
+        Car car2 = Car.create(Car::new);
+        List<Car> cars2 = Arrays.asList(car2);
+        //4.    实例::方法   要有对应的参数
+        cars2.forEach(car2::follow);
+        System.out.println("car2:   " + car2.toString());
     }
 
 
     public static class Car {
-        public static Car create( final Supplier< Car > supplier ) {
+        public static Car create(final Supplier<Car> supplier) {
             return supplier.get();
         }
 
-        public static void collide( final Car car ) {
-            System.out.println( "Collided " + car.toString() );
+        public static void collide(final Car car) {
+            System.out.println("Collided " + car.toString());
         }
 
-        public void follow( final Car another ) {
-            System.out.println( "Following the " + another.toString() );
+        public void follow(final Car another) {
+            System.out.println("Following the " + another.toString());
         }
 
         public void repair() {
-            System.out.println( "Repaired " + this.toString() );
+            System.out.println("Repaired " + this.toString());
+        }
+
+        public void repair1() {
+            System.out.println("Repaired1 " + this.toString());
         }
     }
+
+    @Test
+    //重复注解
+    public void test6() {
+
+    }
+
 }
