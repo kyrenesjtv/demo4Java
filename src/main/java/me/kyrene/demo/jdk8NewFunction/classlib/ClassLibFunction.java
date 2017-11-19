@@ -61,7 +61,7 @@ public class ClassLibFunction {
         String filename="";
         Path path = new File(filename).toPath();
         try {
-            Files.lines(path, StandardCharsets.UTF_8)
+            Files.lines(path, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
