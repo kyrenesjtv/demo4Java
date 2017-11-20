@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by wanglin on 2017/11/19.
+ * Created by wanglin on 2017/11/19
+ *   resources文件夹下面的IKAnalyzer.cfg.xml为自定的扩展词典和停止词字典
  */
 public class LuceneTest {
 
