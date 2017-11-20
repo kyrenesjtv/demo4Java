@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * item.sql。是本测试使用的数据库数据
  * Created by wanglin on 2017/11/20.
  */
 public class SolrJ {
