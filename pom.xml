@@ -127,7 +127,14 @@
         </dependency>
         <!-- //////////////// -->
 
-
+        <!-- //////////////// -->
+        <!--  jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <!-- //////////////// -->
 
     </dependencies>
     <!-- build #s -->
