@@ -10,6 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,33 +54,49 @@ public class SimpleCrawlJob extends AbstractJob {
         HttpResponse response = HttpUtils.request(crawlMeta, httpConf);
         String res = EntityUtils.toString(response.getEntity());
         if (response.getStatusLine().getStatusCode() == 200) { // 请求成功
+
+            //写入.txt文件
+//            File file = new File("C:\\Users\\Dell\\Desktop\\test.txt");
+//            FileWriter fileWriter = new FileWriter(file);
+//            fileWriter.write(res);
+//            fileWriter.flush();
+//            fileWriter.close();
+            //字符串只得到了2个回答？ 字符串的长度限制？
             doParse(res);
         } else {
             this.crawlResult = new CrawlResult();
             this.crawlResult.setStatus(response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase());
             this.crawlResult.setUrl(crawlMeta.getUrl());
-            throw new Exception("false!! "+crawlResult.getStatus().toString());
+            throw new Exception("false!! " + crawlResult.getStatus().toString());
         }
     }
+
     private void doParse(String html) {
 
         Document document = Jsoup.parse(html);
 
         Map<String, List<String>> map = new HashMap<>(crawlMeta.getSelectorRules().size());
-
-        for (String rule : crawlMeta.getSelectorRules()) {
+        List<String> authorNames = new ArrayList<>();
+        String ListItem = crawlMeta.getSelectorRules().get(0);
+        String RichContent = crawlMeta.getSelectorRules().get(1);
+        String Avatar = crawlMeta.getSelectorRules().get(2);
+        Elements select = document.select(ListItem);//为什么只有两个
+        for (Element element : document.select(ListItem)) {
             List<String> list = new ArrayList<>();
-            for (Element element: document.select(rule)) {
-                //我需要在这里硬编码?????  知乎小姐姐啊啊啊啊啊
-                Elements a = element.select("a");
-                list.add(a.attr("href"));
-                System.out.println(list.toString());
+            Elements img = element.select(RichContent).select("img");
+            String authorName = element.select(Avatar).attr("alt");
+            for (int i = 0; i < img.size(); i++) {
+                if (i % 2 == 0) {
+                    list.add(img.get(i).attr("src"));
+                }
             }
-            map.put(rule,list);
+            authorNames.add(authorName+authorNames.size());
+            map.put(authorName+authorNames.size(), list);
         }
         this.crawlResult = new CrawlResult();
         this.crawlResult.setUrl(crawlMeta.getUrl());
         this.crawlResult.setHrmlDoc(document);
         this.crawlResult.setResult(map);
+        this.crawlResult.setAuthorNames(authorNames);
     }
 }

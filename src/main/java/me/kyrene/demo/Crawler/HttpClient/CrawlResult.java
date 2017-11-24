@@ -13,11 +13,21 @@ public class CrawlResult {
 
     private Status  status;
 
+    private List<String>  authorNames;
+
     private String url;
 
     private Document hrmlDoc;
 
     private Map<String,List<String>> result;
+
+    public List<String> getAuthorNames() {
+        return authorNames;
+    }
+
+    public void setAuthorNames(List<String> authorNames) {
+        this.authorNames = authorNames;
+    }
 
     public Document getHrmlDoc() {
         return hrmlDoc;
@@ -27,7 +37,7 @@ public class CrawlResult {
         this.hrmlDoc = hrmlDoc;
     }
 
-    public Map<String, List<String>> getResult() {
+    public Map<String, List<String>> getResult(List<String> authorNames) {
         return result;
     }
 

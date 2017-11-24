@@ -75,7 +75,7 @@ public class HttpClientDemo {
             response = httpClient.execute(httpPost);
             HttpEntity httpEntity = response.getEntity();
             if (httpEntity != null) {
-                System.out.println("Respone Content" + EntityUtils.toString(httpEntity, "UTF=8"));
+                System.out.println("Respone Content" + EntityUtils.toString(httpEntity, "UTF-8"));
             }
         } catch (IOException e) {
             e.printStackTrace();
