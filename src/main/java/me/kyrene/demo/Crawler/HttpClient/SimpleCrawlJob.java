@@ -1,9 +1,6 @@
 package me.kyrene.demo.Crawler.HttpClient;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -49,19 +46,19 @@ public class SimpleCrawlJob extends AbstractJob {
     public void doFetchPage() throws Exception {
         //设置请求方式
         CrawlHttpConf httpConf = new CrawlHttpConf();
-        httpConf.setMethod(CrawlHttpConf.HttpMethod.GET);
+        httpConf.setMethod(CrawlHttpConf.HttpMethod.POST);
 
         HttpResponse response = HttpUtils.request(crawlMeta, httpConf);
         String res = EntityUtils.toString(response.getEntity());
         if (response.getStatusLine().getStatusCode() == 200) { // 请求成功
 
             //写入.txt文件
-//            File file = new File("C:\\Users\\Dell\\Desktop\\test.txt");
-//            FileWriter fileWriter = new FileWriter(file);
-//            fileWriter.write(res);
-//            fileWriter.flush();
-//            fileWriter.close();
-            //字符串只得到了2个回答？ 字符串的长度限制？
+            File file = new File("C:\\Users\\Dell\\Desktop\\test.txt");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(res);
+            fileWriter.flush();
+            fileWriter.close();
+            //字符串只得到了2个回答？  知乎具有反爬虫机制
             doParse(res);
         } else {
             this.crawlResult = new CrawlResult();
@@ -80,8 +77,12 @@ public class SimpleCrawlJob extends AbstractJob {
         String ListItem = crawlMeta.getSelectorRules().get(0);
         String RichContent = crawlMeta.getSelectorRules().get(1);
         String Avatar = crawlMeta.getSelectorRules().get(2);
-        Elements select = document.select(ListItem);//为什么只有两个
-        for (Element element : document.select(ListItem)) {
+       // Elements select = document.select(ListItem);
+//        for (Element element : document.select(ListItem)) {
+        Elements elements = document.select(ListItem);//为什么只有两个
+        System.out.println("--------得到"+elements.size()+"个回答-------------");
+        for (int j = 0; j < elements.size(); j++) {
+            Element element = elements.get(j);
             List<String> list = new ArrayList<>();
             Elements img = element.select(RichContent).select("img");
             String authorName = element.select(Avatar).attr("alt");
@@ -90,8 +91,9 @@ public class SimpleCrawlJob extends AbstractJob {
                     list.add(img.get(i).attr("src"));
                 }
             }
-            authorNames.add(authorName+authorNames.size());
-            map.put(authorName+authorNames.size(), list);
+            authorNames.add(authorName + j);
+            map.put(authorName + j, list);
+            System.out.println("------------第"+j+"个回答有"+list.size()+"张照片--------");
         }
         this.crawlResult = new CrawlResult();
         this.crawlResult.setUrl(crawlMeta.getUrl());

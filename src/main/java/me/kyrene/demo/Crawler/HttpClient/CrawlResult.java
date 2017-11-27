@@ -37,7 +37,7 @@ public class CrawlResult {
         this.hrmlDoc = hrmlDoc;
     }
 
-    public Map<String, List<String>> getResult(List<String> authorNames) {
+    public Map<String, List<String>> getResult() {
         return result;
     }
 

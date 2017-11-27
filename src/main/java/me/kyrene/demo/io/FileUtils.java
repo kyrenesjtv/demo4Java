@@ -1,6 +1,8 @@
 package me.kyrene.demo.io;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,7 +229,7 @@ public class FileUtils {
 
             // 确定目标文件夹的路径
             // 目标文件夹路径的字符串形式为      destPath的文件路径名 + dir的路径全名减去字符串s
-            File path = new File(destDir.getAbsolutePath().concat(dir.getAbsolutePath().substring(s.length())));
+            File path = new File(destDir.getAbsolutePath()+"\\".concat(dir.getAbsolutePath().substring(s.length())));
             // 创建目标文件夹路径
             path.mkdirs();
 
@@ -242,6 +244,43 @@ public class FileUtils {
                     fileQueue.add(file);
                 }
             }
+        }
+    }
+
+    /**
+     * 根据url下载图片 downLoadPath要根据这个建文件夹
+     * @param imgurl downLoadPath
+     */
+    public static void downloadPicture(String imgurl,String downLoadPath) {
+        URL url = null;
+        int imageNumber = 0;
+        DataInputStream dataInputStream= null;
+        FileOutputStream fileOutputStream =null;
+        try {
+            url = new URL(imgurl);
+            dataInputStream = new DataInputStream(url.openStream());
+
+            //String imageName =  downLoadPath;
+            File file = new File(downLoadPath);
+            file.mkdirs();
+            String downIMG = imgurl.substring(imgurl.lastIndexOf("/") + 1);
+            fileOutputStream = new FileOutputStream(new File(downLoadPath+"\\"+downIMG));
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            byte[] context=output.toByteArray();
+            fileOutputStream.write(output.toByteArray());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            closeFileResource(dataInputStream,fileOutputStream);
         }
     }
 }

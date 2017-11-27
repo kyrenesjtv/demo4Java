@@ -14,7 +14,7 @@ public class CrawlHttpConf {
         DEFAULT_HEADERS = new HashMap<>();
         DEFAULT_HEADERS.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         DEFAULT_HEADERS.put("connection", "Keep-Alive");
-        DEFAULT_HEADERS.put("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+        DEFAULT_HEADERS.put("user-agent", "Chrome Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36");
     }
 
 
@@ -25,7 +25,7 @@ public class CrawlHttpConf {
         PUT;
     }
 
-    private HttpMethod method = HttpMethod.GET;
+    private HttpMethod method ;
 
     private Map<String, String> requestHeaders;
 

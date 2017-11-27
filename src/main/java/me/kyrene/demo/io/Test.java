@@ -18,7 +18,7 @@ public class Test {
         //List<File> files = FileUtils.listAllFile_Q(file);
        // FileUtils.deleteFolder_D(file);
         //FileUtils.deleteFolder_Q(file);
-        FileUtils.copyFolder_D(file,file1);
+        FileUtils.copyFolder_Q(file,file1);
         System.out.println("aaaa");
     }
 }
