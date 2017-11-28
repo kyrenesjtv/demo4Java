@@ -16,6 +16,7 @@
             <artifactId>junit</artifactId>
             <version>4.9</version>
         </dependency>
+
         <!-- //////////////// -->
         <!-- apache httpclient -->
         <dependency>
@@ -135,7 +136,14 @@
             <version>1.9.1</version>
         </dependency>
         <!-- //////////////// -->
-
+        <!-- //////////////// -->
+        <!-- google二维码生成&解析 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!-- //////////////// -->
     </dependencies>
     <!-- build #s -->
     <build>
