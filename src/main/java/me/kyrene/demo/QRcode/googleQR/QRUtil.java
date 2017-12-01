@@ -30,7 +30,7 @@ public class QRUtil {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
         BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height, hints);
-        String pathName = "F:/new.png";
+        String pathName = "F:/new."+format;
         File outputFile = new File(pathName);
         MatrixToImageWriter.writeToFile(bitMatrix, format, outputFile);
         return pathName;
@@ -49,7 +49,6 @@ public class QRUtil {
 
         //参数length，表示生成几位随机数
         for (int i = 0; i < length; i++) {
-
             String charOrNum = random.nextInt(2) % 2 == 0 ? charStr : numStr;
             //输出字母还是数字
             if (charStr.equalsIgnoreCase(charOrNum)) {
