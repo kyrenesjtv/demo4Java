@@ -1,9 +1,7 @@
 package me.kyrene.demo.redis.jedis;
 
-import redis.clients.jedis.BinaryClient;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
+import redis.clients.jedis.params.Params;
 
 import java.util.List;
 import java.util.Map;
@@ -81,6 +79,7 @@ public class JedisUtil {
             jedis.close();
         }
     }
+    //-----------------------------------string---------------------------
 
     /**
      * 设置String类型 键值
@@ -904,6 +903,8 @@ public class JedisUtil {
         return result;
     }
 
+    //--------------------------------------hash-------------------------------------
+
     /**
      * 命令用于删除哈希表 key 中的一个或多个指定字段，不存在的字段将被忽略。
      *
@@ -1042,6 +1043,7 @@ public class JedisUtil {
         }
         return result;
     }
+
 
     /**
      * 用于获取哈希表中的所有域（field）。
@@ -1203,6 +1205,8 @@ public class JedisUtil {
         }
         return result;
     }
+
+    //--------------------------------------------List------------------------------------------------
 
     /**
      * 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
@@ -1413,6 +1417,7 @@ public class JedisUtil {
     /**
      * 回列表中指定区间内的元素，区间以偏移量 START 和 END 指定。
      * 其中 0 表示列表的第一个元素， 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
+     *
      * @param key
      * @param start
      * @param end
@@ -1423,7 +1428,7 @@ public class JedisUtil {
         List<String> result = null;
         try {
             jedis = getJedis();
-            result = jedis.lrange(key,start,end);
+            result = jedis.lrange(key, start, end);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1435,21 +1440,22 @@ public class JedisUtil {
 
     /**
      * 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素。
-     *  COUNT 的值可以是以下几种：
-     *  count > 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。
-     *  count < 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。
-     *  count = 0 : 移除表中所有与 VALUE 相等的值。
+     * COUNT 的值可以是以下几种：
+     * count > 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。
+     * count < 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。
+     * count = 0 : 移除表中所有与 VALUE 相等的值。
+     *
      * @param key
      * @param count
      * @param value
      * @return 被移除元素的数量。 列表不存在时返回 0 。
      */
-    public Long lRem(String key, long count,String value) {
+    public Long lRem(String key, long count, String value) {
         Jedis jedis = null;
         Long result = null;
         try {
             jedis = getJedis();
-            result = jedis.lrem(key,count,value);
+            result = jedis.lrem(key, count, value);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1462,17 +1468,18 @@ public class JedisUtil {
     /**
      * 通过索引来设置元素的值。
      * 当索引参数超出范围，或对一个空列表进行 LSET 时，返回一个错误。
+     *
      * @param key
      * @param index
      * @param value
      * @return 操作成功返回 ok ，否则返回错误信息。
      */
-    public String lSet(String key, long index,String value) {
+    public String lSet(String key, long index, String value) {
         Jedis jedis = null;
         String result = null;
         try {
             jedis = getJedis();
-            result = jedis.lset(key,index,value);
+            result = jedis.lset(key, index, value);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1483,19 +1490,20 @@ public class JedisUtil {
     }
 
     /**
-     *  对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
-     *  下标 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
+     * 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
+     * 下标 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
+     *
      * @param key
      * @param start
      * @param end
      * @return 命令执行成功时，返回 ok 。
      */
-    public String lTrim(String key, long start,long end) {
+    public String lTrim(String key, long start, long end) {
         Jedis jedis = null;
         String result = null;
         try {
             jedis = getJedis();
-            result = jedis.ltrim(key,start,end);
+            result = jedis.ltrim(key, start, end);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1507,8 +1515,9 @@ public class JedisUtil {
 
     /**
      * 用于移除并返回列表的最后一个元素。
+     *
      * @param key
-     * @return  列表的最后一个元素。 当列表不存在时，返回 null 。
+     * @return 列表的最后一个元素。 当列表不存在时，返回 null 。
      */
     public String rPop(String key) {
         Jedis jedis = null;
@@ -1526,17 +1535,18 @@ public class JedisUtil {
     }
 
     /**
-     *  命令用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回。
+     * 命令用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回。
+     *
      * @param list1
      * @param list2
      * @return 被弹出的元素。
      */
-    public String rPoplPush(String list1,String list2) {
+    public String rPoplPush(String list1, String list2) {
         Jedis jedis = null;
         String result = null;
         try {
             jedis = getJedis();
-            result = jedis.rpoplpush(list1,list2);
+            result = jedis.rpoplpush(list1, list2);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1549,16 +1559,17 @@ public class JedisUtil {
     /**
      * 命令用于将一个或多个值插入到列表的尾部(最右边)。
      * 如果列表不存在，一个空列表会被创建并执行 RPUSH 操作。 当列表存在但不是列表类型时，返回一个错误。
+     *
      * @param key
      * @param values
      * @return 列表的长度。
      */
-    public Long rPush(String key,String... values) {
+    public Long rPush(String key, String... values) {
         Jedis jedis = null;
         Long result = null;
         try {
             jedis = getJedis();
-            result = jedis.rpush(key,values);
+            result = jedis.rpush(key, values);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1570,16 +1581,17 @@ public class JedisUtil {
 
     /**
      * 用于将一个值插入到已存在的列表尾部(最右边)。如果列表不存在，操作无效。
+     *
      * @param key
      * @param values
      * @return 列表的长度。
      */
-    public Long rPushx(String key,String... values) {
+    public Long rPushx(String key, String... values) {
         Jedis jedis = null;
         Long result = null;
         try {
             jedis = getJedis();
-            result = jedis.rpushx(key,values);
+            result = jedis.rpushx(key, values);
         } catch (Exception e) {
             close(jedis);
             e.printStackTrace();
@@ -1589,4 +1601,771 @@ public class JedisUtil {
         return result;
     }
 
+    //--------------------------set-------------------
+
+    /**
+     * 命令将一个或多个成员元素加入到集合中，已经存在于集合的成员元素将被忽略。
+     * 假如集合 key 不存在，则创建一个只包含添加的元素作成员的集合。
+     * 当集合 key 不是集合类型时，返回一个错误。
+     * 注意：在Redis2.4版本以前， SADD 只接受单个成员值。
+     *
+     * @param key
+     * @param values
+     * @return 被添加到集合中的新元素的数量，不包括被忽略的元素。
+     */
+    public Long sAdd(String key, String... values) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sadd(key, values);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回集合中元素的数量。
+     *
+     * @param key
+     * @return 集合的数量。 当集合 key 不存在时，返回 0 。
+     */
+    public Long sCard(String key) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.scard(key);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回给定集合之间的差集。不存在的集合 key 将视为空集。
+     * 差集的结果来着前面的 FIRST_KEY ,而不是后面的 OTHER_KEY1，也不是整个 FIRST_KEY OTHER_KEY1..OTHER_KEYN 的差集。
+     * key1 = {a,b,c,d}
+     * key2 = {c}
+     * key3 = {a,c,e}
+     * SDIFF key1 key2 key3 = {b,d}
+     *
+     * @param keys
+     * @return 包含差集成员的列表
+     */
+    public Set<String> sDiff(String... keys) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sdiff(keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令将给定集合之间的差集存储在指定的集合中。如果指定的集合 key 已存在，则会被覆盖。
+     *
+     * @param dstkey
+     * @param keys
+     * @return 结果集中的元素数量。
+     */
+    public Long sDiffStore(String dstkey, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sdiffstore(dstkey, keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回给定所有给定集合的交集。 不存在的集合 key 被视为空集。 当给定集合当中有一个空集时，结果也为空集(根据集合运算定律)。
+     *
+     * @param keys
+     * @return 交集成员的列表
+     */
+    public Set<String> sInter(String... keys) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sinter(keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令将给定集合之间的交集存储在指定的集合中。如果指定的集合已经存在，则将其覆盖。
+     *
+     * @param dstkey
+     * @param keys
+     * @return 交集成员的列表
+     */
+    public Long sInteStore(String dstkey, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sinterstore(dstkey, keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回集合中的所有的成员。 不存在的集合 key 被视为空集合。
+     *
+     * @param key
+     * @return 集合中的所有成员
+     */
+    public Set<String> sMembers(String key) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.smembers(key);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令将指定成员 member 元素从 source 集合移动到 destination 集合。
+     * SMOVE 是原子性操作。
+     * 如果 source 集合不存在或不包含指定的 member 元素，则 SMOVE 命令不执行任何操作，仅返回 0 。否则， member 元素从 source 集合中被移除，并添加到 destination 集合中去。
+     * 当 destination 集合已经包含 member 元素时， SMOVE 命令只是简单地将 source 集合中的 member 元素删除。
+     * 当 source 或 destination 不是集合类型时，返回一个错误。
+     *
+     * @param source
+     * @param destination
+     * @param member
+     * @return 如果成员元素被成功移除，返回 1 。 如果成员元素不是 source 集合的成员，并且没有任何操作对 destination 集合执行，那么返回 0 。
+     */
+    public Long sMove(String source, String destination, String member) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.smove(source, destination, member);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于移除并返回集合中的一个随机元素。
+     *
+     * @param key
+     * @return 被移除的随机元素。 当集合不存在或是空集时，返回 null
+     */
+    public String sPop(String key) {
+        Jedis jedis = null;
+        String result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.spop(key);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于返回集合中的一个随机元素。
+     * 从 Redis 2.6 版本开始， Srandmember 命令接受可选的 count 参数：
+     * 如果 count 为正数，且小于集合基数，那么命令返回一个包含 count 个元素的数组，数组中的元素各不相同。如果 count 大于等于集合基数，那么返回整个集合。
+     * 如果 count 为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为 count 的绝对值。
+     * 该操作和 SPOP 相似，但 SPOP 将随机元素从集合中移除并返回，而 Srandmember 则仅仅返回随机元素，而不对集合进行任何改动。
+     *
+     * @param key
+     * @param count
+     * @return 只提供集合 key 参数时，返回一个元素；如果集合为空，返回 null 。 如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。
+     */
+    public List<String> sRandMember(String key, int count) {
+        Jedis jedis = null;
+        List<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.srandmember(key, count);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于移除集合中的一个或多个成员元素，不存在的成员元素会被忽略。
+     * 当 key 不是集合类型，返回一个错误。
+     *
+     * @param key
+     * @param members
+     * @return 被成功移除的元素的数量，不包括被忽略的元素
+     */
+    public Long sRem(String key, String... members) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.srem(key, members);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /***
+     * 命令返回给定集合的并集。不存在的集合 key 被视为空集。
+     * @param keys
+     * @return 并集成员的列表。
+     */
+    public Set<String> sUnion(String... keys) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sunion(keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令将给定集合的并集存储在指定的集合 destination 中。如果 destination 已经存在，则将其覆盖
+     *
+     * @param destkey
+     * @param keys
+     * @return 结果集中的元素数量。
+     */
+    public Long sUnionStore(String destkey, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.sunionstore(destkey, keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    //-------------------------------------sorted set----------------------------
+
+    /**
+     * 令用于将一个或多个成员元素及其分数值加入到有序集当中。
+     * 如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。
+     * 分数值可以是整数值或双精度浮点数。
+     * 如果有序集合 key 不存在，则创建一个空的有序集并执行 ZADD 操作。
+     * 当 key 存在但不是有序集类型时，返回一个错误。
+     *
+     * @param key
+     * @param score
+     * @param member
+     * @return
+     */
+    public Long zAdd(String key, double score, String member) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zadd(key, score, member);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    public Long zAdd(String key, Map<String, Double> map) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zadd(key, map);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于计算集合中元素的数量。
+     *
+     * @param key
+     * @return 当 key 存在且是有序集类型时，返回有序集的基数。 当 key 不存在时，返回 null。
+     */
+    public Long zCard(String key) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zcard(key);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于计算有序集合中指定分数区间的成员数量。
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 分数值在 min（包含） 和 max(包含) 之间的成员的数量。
+     */
+    public Long zCount(String key, double min, double max) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zcount(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到 destination 。
+     * 默认情况下，结果集中某个成员的分数值是所有给定集下该成员分数值之和。
+     *
+     * @param destkey
+     * @param keys
+     * @return 保存到目标结果集的的成员数量。
+     */
+    public Long zInterStore(String destkey, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zinterstore(destkey, keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    public Long zInterStore(String destkey, ZParams zParams, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zinterstore(destkey, zParams, keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 成员名称前需要加 [ 符号作为开头, [ 符号与成员之间不能有空格
+     * 可以使用 - 和 + 表示得分最小值和最大值
+     * min 和 max 不能反, max 放前面 min放后面会导致返回结果为0
+     * 计算成员之间的成员数量时,参数 min 和 max 的位置也计算在内。
+     * min 和 max 参数的含义与 zrangebylex 命令中所描述的相同
+     * redis> ZLEXCOUNT myzset - +
+     * (integer) 7
+     * redis> ZLEXCOUNT myzset [c +
+     * (integer) 5
+     * redis> ZLEXCOUNT myzset - [c
+     * (integer) 3
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 指定区间内的成员数量。
+     */
+    public Long zLexCount(String key, String min, String max) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zlexcount(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+
+    /**
+     * 返回有序集中，指定区间内的成员。
+     * 其中成员的位置按分数值递增(从小到大)来排序。
+     * 具有相同分数值的成员按字典序(lexicographical order )来排列。
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
+     */
+    public Set<String> zRange(String key, long start, long end) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrange(key, start, end);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 通过字典区间返回有序集合的成员。
+     * - + 最小到最大
+     * [ 包含 ( 不包含
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 指定区间内的元素列表。
+     */
+    public Set<String> zRangeByLex(String key, String min, String max) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrangeByLex(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 返回有序集合中指定分数区间的成员列表。有序集成员按分数值递增(从小到大)次序排列。
+     * 具有相同分数值的成员按字典序来排列(该属性是有序集提供的，不需要额外的计算)。
+     * 默认情况下，区间的取值使用闭区间 (小于等于或大于等于)，你也可以通过给参数前增加 ( 符号来使用可选的开区间 (小于或大于)。
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 指定区间内，带有分数值(可选)的有序集成员的列表。
+     */
+    public Set<String> zRangeByScore(String key, String min, String max) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrangeByScore(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    public Set<String> zRangeByScore(String key, Double min, Double max) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrangeByScore(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 返回有序集中指定成员的排名。其中有序集成员按分数值递增(从小到大)顺序排列。
+     *
+     * @param key
+     * @param memeber
+     * @return 如果成员是有序集 key 的成员，返回 member 的排名。 如果成员不是有序集 key 的成员，返回 null 。
+     * 实例
+     */
+    public Long zRank(String key, String memeber) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrank(key, memeber);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 令用于移除有序集中的一个或多个成员，不存在的成员将被忽略。
+     * 当 key 存在但不是有序集类型时，返回一个错误。
+     *
+     * @param key
+     * @param memebers
+     * @return 被成功移除的成员的数量，不包括被忽略的成员。
+     */
+    public Long zRem(String key, String... memebers) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrem(key, memebers);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 令用于移除有序集合中给定的字典区间的所有成员。
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 被成功移除的成员的数量，不包括被忽略的成员。
+     */
+    public Long zRemRangeRyLex(String key, String min, String max) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zremrangeByLex(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于移除有序集中，指定排名(rank)区间内的所有成员。
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return 被移除成员的数量。
+     */
+    public Long zRemRangeRyRank(String key, long start, long end) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zremrangeByRank(key, start, end);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令用于移除有序集中，指定分数（score）区间内的所有成员。
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return 被移除成员的数量。
+     */
+    public Long zRemRangeRyScore(String key, Double min, Double max) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zremrangeByScore(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    public Long zRemRangeRyScore(String key, String min, String max) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zremrangeByScore(key, min, max);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回有序集中，指定区间内的成员。
+     *  其中成员的位置按分数值递减(从大到小)来排列。
+     *  具有相同分数值的成员按字典序的逆序(reverse lexicographical order)排列。
+     * @param key
+     * @param start
+     * @param end
+     * @return  指定区间内，带有分数值(可选)的有序集成员的列表。
+     */
+    public Set<String> zRevRange(String key, long start, long end) {
+        Jedis jedis = null;
+        Set<String> result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zrevrange(key, start, end);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令返回有序集中，成员的分数值。 如果成员元素不是有序集 key 的成员，或 key 不存在，返回 null 。
+     * @param key
+     * @param member
+     * @return 返回score
+     */
+    public Double zScore(String key, String member) {
+        Jedis jedis = null;
+        Double result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zscore(key,member);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+
+    /**
+     * 命令计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到 destination 。
+     * 默认情况下，结果集中某个成员的分数值是所有给定集下该成员分数值之和 。
+     * @param dstkey
+     * @param keys
+     * @return 保存到 destination 的结果集的成员数量。
+     */
+    public Long zUnionStore(String dstkey, String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zunionstore(dstkey,keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+    /**
+     * 命令计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到 destination 。
+     * 默认情况下，结果集中某个成员的分数值是所有给定集下该成员分数值之和 。
+     * @param dstkey
+     * @param keys
+     * @return 保存到 destination 的结果集的成员数量。
+     */
+    public Long zUnionStore(String dstkey,ZParams params ,String... keys) {
+        Jedis jedis = null;
+        Long result = null;
+        try {
+            jedis = getJedis();
+            result = jedis.zunionstore(dstkey,params,keys);
+        } catch (Exception e) {
+            close(jedis);
+            e.printStackTrace();
+        } finally {
+            returnResource(jedis);
+        }
+        return result;
+    }
+    
 }
