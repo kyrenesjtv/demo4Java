@@ -7,10 +7,7 @@ import org.apache.poi.ss.usermodel.Row;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wanglin on 2017/12/7.
@@ -53,6 +50,8 @@ public class ExcelExport {
         for (int i = 0; i < data.size(); i++) {
             Map<String, String> map = data.get(i);
             Row row = ws.createRow(1 + i);
+            //java8 lambda没有提供索引？
+            //title.forEach(titleName -> row.createCell(j).setCellValue(map.get(titleName)));
             for (int j = 0; j < title.size(); j++) {
                 row.createCell(j).setCellValue(map.get(title.get(j)));
             }
@@ -70,12 +69,7 @@ public class ExcelExport {
     }
 
     private static List<String> makeTitle() {
-        List<String> list = new ArrayList<>();
-        list.add("Name");
-        list.add("Sex");
-        list.add("Age");
-        list.add("Addr");
-        list.add("Phone");
+        List<String> list = Arrays.asList("Name", "Sex", "Age", "Addr", "Phone");
         return list;
     }
 
