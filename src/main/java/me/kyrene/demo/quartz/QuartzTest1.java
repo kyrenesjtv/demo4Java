@@ -62,7 +62,7 @@ public class QuartzTest1 {
             CronTriggerImpl cronTrigger = new CronTriggerImpl();
             cronTrigger.setName("trigger1");
             cronTrigger.setStartTime(new Date(new Date().getTime() + 1000));
-            cronTrigger.setCronExpression("0/1 * * * * ? ");//每隔1s出发
+            cronTrigger.setCronExpression("0/10 * * * * ? ");//每隔1s出发
 
             //设置一个job
             JobDetailImpl jobDetail = new JobDetailImpl();

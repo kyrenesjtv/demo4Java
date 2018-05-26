@@ -18,7 +18,7 @@ import java.util.Map;
 public class ExcelImport {
 
     public static void main(String[] args) throws Exception {
-        String toPath = "e:\\2017918.xls";
+        String toPath = "C:\\Users\\wanglin\\Desktop\\caiwudaochugeshi.xls";
         import1(toPath);
     }
 
