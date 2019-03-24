@@ -83,38 +83,38 @@
         <!-- //////////////// -->
         <!-- lucene核心库 -->
         <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-core</artifactId>-->
-            <!--<version>4.10.2</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>org.apache.lucene</groupId>-->
+        <!--<artifactId>lucene-core</artifactId>-->
+        <!--<version>4.10.2</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; Lucene的查询解析器 &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-queryparser</artifactId>-->
-            <!--<version>4.10.2</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>org.apache.lucene</groupId>-->
+        <!--<artifactId>lucene-queryparser</artifactId>-->
+        <!--<version>4.10.2</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; lucene的默认分词器库 &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-analyzers-common</artifactId>-->
-            <!--<version>4.10.2</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>org.apache.lucene</groupId>-->
+        <!--<artifactId>lucene-analyzers-common</artifactId>-->
+        <!--<version>4.10.2</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; lucene的高亮显示 &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-highlighter</artifactId>-->
-            <!--<version>4.10.2</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>org.apache.lucene</groupId>-->
+        <!--<artifactId>lucene-highlighter</artifactId>-->
+        <!--<version>4.10.2</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; IK分词器 &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>com.janeluo</groupId>-->
-            <!--<artifactId>ikanalyzer</artifactId>-->
-            <!--<version>2012_u6</version>-->
-            <!--<scope>provided</scope>-->
+        <!--<groupId>com.janeluo</groupId>-->
+        <!--<artifactId>ikanalyzer</artifactId>-->
+        <!--<version>2012_u6</version>-->
+        <!--<scope>provided</scope>-->
         <!--</dependency>-->
         <!-- //////////////// -->
 
@@ -161,19 +161,19 @@
         <!-- //////////////// -->
         <!-- //////////////// -->
         <!-- jedis 操作redis -->
-       <dependency>
-           <groupId>redis.clients</groupId>
-           <artifactId>jedis</artifactId>
-           <version>2.9.0</version>
-           <scope>provided</scope>
-       </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
             <version>2.4.3</version>
             <scope>provided</scope>
         </dependency>
-       <!-- //////////////// -->
+        <!-- //////////////// -->
         <!-- //////////////// -->
         <!--  poi -->
         <dependency>
@@ -284,14 +284,14 @@
         </dependency>
         <!-- sms -->
         <!--<dependency>-->
-            <!--<groupId>com.aliyun</groupId>-->
-            <!--<artifactId>aliyun-java-sdk-core</artifactId>-->
-            <!--<version>4.0.0</version>-->
+        <!--<groupId>com.aliyun</groupId>-->
+        <!--<artifactId>aliyun-java-sdk-core</artifactId>-->
+        <!--<version>4.0.0</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>com.aliyun</groupId>-->
-            <!--<artifactId>aliyun-java-sdk-dysmsapi</artifactId>-->
-            <!--<version>1.1.0</version>-->
+        <!--<groupId>com.aliyun</groupId>-->
+        <!--<artifactId>aliyun-java-sdk-dysmsapi</artifactId>-->
+        <!--<version>1.1.0</version>-->
         <!--</dependency>-->
 
         <!-- JSON end -->

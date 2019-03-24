@@ -9,6 +9,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.lucene.queries.function.valuesource.SumTotalTermFreqValueSource;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -1917,6 +1918,114 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void test50() throws IOException, URISyntaxException {
+//        Calendar c = Calendar.getInstance();
+//        System.out.println(c.get(Calendar.YEAR));
+//        System.out.println(c.get(Calendar.MONTH)+1);
+//        System.out.println(c.get(Calendar.WEEK_OF_YEAR));
+//        System.out.println(c.get(Calendar.DAY_OF_MONTH));
+
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        c.setTime(new Date());
+//        c.add(Calendar.YEAR, 0);
+//        System.out.println(c.get(Calendar.YEAR));
+//        System.out.println(c.get(Calendar.MONTH)+1);
+//        System.out.println(c.get(Calendar.WEEK_OF_YEAR));
+//        System.out.println(c.get(Calendar.DAY_OF_MONTH));
+
+        int month = 7;
+//        System.out.println(month%3);
+        int QUARTER = month%3 == 0? month/3:month/3+1;
+        System.out.println(QUARTER);
+
+    }
+
+
+//    @org.junit.Test
+//    public void test51() throws IOException, URISyntaxException {
+//        ArrayList<Map<String,Object>> objects = new ArrayList<>();
+//        for(int i = 0 ; i<5 ;i++){
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("name",i);
+//            map.put("value",i);
+//            objects.add(map);
+//        }
+//
+//        Set<String> objects1 = new HashSet<>();
+//        objects1.add("0");
+//        objects1.add("1");
+//        objects1.add("2");
+//        objects1.add("3");
+//        objects1.add("4");
+//        objects1.add("5");
+//
+//        ArrayList<Map<String,Object>> objects2 = new ArrayList<>();
+//
+////        for(String s : objects1){
+////            for(Map<String,Object> map : objects){
+////                if( !objects1.contains(map.get("name").toString())){
+////                    HashMap<String, Object> map2 = new HashMap<>();
+////                    map2.put("name",s);
+////                    map2.put("value","wanglin");
+////                    objects2.add(map2);
+////                }
+////            }
+////        }
+//
+//        objects.addAll(objects2);
+//
+//        System.out.println("1111111111");
+//
+//    }
+
+    @org.junit.Test
+    public void test51() throws IOException, URISyntaxException {
+
+        String time = "2019-01-01 12:00:00";
+        String substring = time.substring(4, time.length());
+        System.out.println(substring);
+    }
+
+    /**
+     * 冒泡排序
+     * @param a
+     * @param n
+     * @throws Exception
+     */
+    @org.junit.Test
+    public void bubbleSort(int[] a, int n) throws Exception {
+        if(n <= 0 ){
+            throw new Exception(" sort length is illegal");
+        }
+
+        for(int i = 0 ; i < n ; i++ ){
+            //判断数据是否有交换
+            Boolean flag= false;
+            for(int j = 0 ; j < n-i-1 ; j++){
+                if(a[i]<a[j]){
+                    int temp = a[j];
+                    a[j]=a[i];
+                    a[i]=a[j];
+                    flag=true;
+                }
+            }
+            //没有数据交换提前退出
+            if(!flag){
+                break;
+            }
+        }
+    }
+
+    @org.junit.Test
+    public void test52() throws IOException, URISyntaxException {
+
+        Map<String, Object> stringObjectMap = new HashMap<String, Object>();
+        stringObjectMap.put("111",11);
+        int o = (int) stringObjectMap.get("111");
+        System.out.println(o);
+
+    }
 
     private static boolean isMobile(String str) {
         boolean matches = Pattern.matches("^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$", str);
